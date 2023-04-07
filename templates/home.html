@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<head>
+    <title>cities.it</title>
+</head>
+<body>
+    {%for city in cities%}
+        {{city['city_name']}}
+        {{city['city_description']}}
+        
+        <img src="data:image/jpg;charset=utf-8; base64, {{city['city_icon']}}" width="100" height="100"
+        class="img-fluid">
+    {% endfor %}
+</body>
+</html>
