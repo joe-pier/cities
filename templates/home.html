@@ -1,120 +1,138 @@
 <!DOCTYPE html>
+<html>
 <head>
     <title>cities.it</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
     <style>
-        body {
-            background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Grey_background.jpg/1200px-Grey_background.jpg");
-            background-size: cover;
-            font-family: 'Montserrat', sans-serif;
-            color: #fff;
+    @font-face {
+            font-family: Cocogoose;
+            src: url('static/Cocogoose.ttf');
         }
-        .card {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 300px;
-            height: 400px;
-            background-color: #ffffff9f;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            text-align: center;
-        }
-        .card-image {
-            width: 70%;
-            height: 200px;
-            object-fit: cover;
-        }
-        .card-text {
-            padding: 0 20px;
-            font-size: 18px;
-            line-height: 1.5;
-            color: #000;
-        }
-        .card-title {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 8px;
-            text-shadow: 1px 1px #ffffff;
-            color: #000;
-        }
-        .card-buttons {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            padding: 20px;
-        }
-        .btn-like, .btn-dislike, .btn-next {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            border: none;
-            font-size: 24px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #fff;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease-in-out;
-            cursor: pointer;
-        }
-        .btn-like {
-            background-color: #ff4d4d;
-        }
-        .btn-like:hover {
-            transform: scale(1.1);
-            background-color: #d64141;
-        }
-        .btn-dislike {
-            background-color: #f2f2f2;
-            color: #000;
-        }
-        .btn-dislike:hover {
-            transform: scale(1.1);
-            background-color: #d9d9d9;
-        }
-        .btn-next {
-            background-color: #1206f7;
-        }
-        .btn-next:hover {
-            transform: scale(1.1);
-            background-color: #0818fa;
-        }
-        .card-footer {
+    body {
+        background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Grey_background.jpg/1200px-Grey_background.jpg");
+        background-size: cover;
+        font-family: 'Montserrat', sans-serif;
+        color: #fff;
+    }
+    .card {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 300px;
+        height: 400px;
+        background-color: #ffffff9f;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
         display: flex;
+        flex-direction: column;
         justify-content: space-between;
-        align-items: center;
-        padding: 20rem;
-        background-color: #f8f9fa;
-        border-top: 30px solid #dee2e6;
-        }
-        .button-group {
+        text-align: center;
+    }
+    .card-image {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 300px;
+                overflow: hidden;
+                }
+    .card-image img {
+                height: 100%;
+                object-fit: cover;
+                }
+    .card-text {
+        padding: 0 20px;
+        font-size: 18px;
+        line-height: 0.5;
+        color: #000;
+    }
+    .card-title {
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 8px;
+        text-shadow: 1px 1px #ffffff;
+        color: #000;
+        margin-top: 2px;
+    }
+    .card-buttons {
         display: flex;
-        justify-content: space-between;
+        justify-content: space-around;
         align-items: center;
-        
-        }
-
-    </style>
+        padding: 20px;
+    }
+    .btn-like, .btn-dislike, .btn-next {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        border: none;
+        font-size: 24px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #fff;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease-in-out;
+        cursor: pointer;
+    }
+    .btn-like {
+        background-color: #ff4d4d;
+    }
+    .btn-like:hover {
+        transform: scale(1.1);
+        background-color: #d64141;
+    }
+    .btn-dislike {
+        background-color: #f2f2f2;
+        color: #000;
+    }
+    .btn-dislike:hover {
+        transform: scale(1.1);
+        background-color: #d9d9d9;
+    }
+    .btn-next {
+        background-color: #1206f7;
+        text-decoration: none; 
+    
+    }
+    .btn-next:hover {
+        transform: scale(1.1);
+        background-color: #0818fa;
+    }
+    .card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20rem;
+    background-color: #f8f9fa;
+    border-top: 30px solid #dee2e6;
+    }
+    .button-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    }
+     </style>
 </head>
 <body>
-    <div style="position: relative; height: 500px; border: 1px solid black;";>
-    <div class="card">
-        <img class="card-img-top city-image" src="data:image/jpg;charset=utf-8;base64,{{city['city_icon']}}" alt="Card image cap">
-        <div class="card-body">
+  {%include 'nav.html'%}
+    <div style="position: relative; height: 500px;">
+        <div class="card">
+          <div class="card-image">
+            <img class="city-image" src="data:image/jpg;charset=utf-8;base64,{{city['city_icon']}}" alt="Card image cap">
+          </div>
+          <div class="card-body">
             <h5 class="card-title city-name">{{city['city_name']}}</h5>
             <p class="card-text city-description">{{city['city_description']}}</p>
+          </div>
         </div>
-    </div>
-</div>
-<div style="position: absolute; bottom: 0; width: 100%; height: 200px; border: 1px solid rgb(233, 11, 11);">
+      </div>
+<div style="position: relative; bottom: 0; width: 100%; height: 200px;">
     <div class="card-buttons" style="display: flex; justify-content: center; align-items: center;">
       <a href="/" class="btn-next" style="margin-right: 10px;">Next</a>
       <form action="/update/{{city['id']}}" method="post" style="display: flex; justify-content: center; align-items: center;">
@@ -125,6 +143,8 @@
       </form>
     </div>
   </div>
-  
+  <div> {%include 'footer.html'%} </div>
   
 </body>
+
+</html>
