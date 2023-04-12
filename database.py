@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine, text
 import base64
 import os
-
+import random
 
 try:
     with open('local.txt') as f:
@@ -35,7 +35,18 @@ def load_cities_from_db():
     with engine.connect() as conn:
         result = conn.execute(text("select * from cities"))
         cities = result.mappings().all()
-    cities_dict = encode_binary_response(cities)
-    return cities_dict
+    cities_list = encode_binary_response(cities)
+    return cities_list
 
-load_cities_from_db()
+def load_city_from_db():
+    with engine.connect() as conn:
+        result = conn.execute(text(f"SELECT * FROM cities ORDER BY RAND() LIMIT 1"))
+        city = result.mappings().all()
+    city_dict = encode_binary_response(city)
+    return city_dict[0]
+
+
+def update_like_dislike(id, ld):
+    with engine.connect() as conn:
+        query = text(f'UPDATE cities.cities SET city_like = "{ld}" WHERE id = {id}')
+        conn.execute(query)
