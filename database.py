@@ -1,7 +1,6 @@
 from sqlalchemy import create_engine, text
 import base64
 import os
-import random
 
 try:
     with open('local.txt') as f:
@@ -51,14 +50,39 @@ def load_city_image_from_db(id_city):
     encoded_image = encode_binary_response(result)
     return [d['im'] for d in encoded_image]
 
-def update_like_dislike(id, like):
+def update_like_dislike(id, like, user):
     with engine.connect() as conn:
-        query = text(f'UPDATE cities.cities SET city_like = "{like}" WHERE id = {id}')
+        query = text(f'UPDATE `cities`.`user{user}` SET `like` = "{like}" WHERE city_id = {id}')
+
+        print(query)
         conn.execute(query)
 
 def load_lat_long_from_db(id):
     with engine.connect() as conn:
         query = text(f'SELECT city_name, city_lat, city_long FROM cities.cities where id = {id};')
-        result = conn.execute(query)
-        return result.mappings().all()[0]
+        result = conn.execute(query).mappings().all()[0]
+        markers=[
+            {
+            'lat':result["city_lat"],
+            'lon':result["city_long"],
+            'popup':result["city_name"]
+                }
+            ]
+        return markers
     
+def try_login(username):
+     with engine.connect() as conn:
+        query = text(f'SELECT * FROM cities.users WHERE user_id = "{username}";')
+        result = conn.execute(query).mappings().all()
+        if len(result) == 0:
+            return False
+        else:
+            return result[0]
+
+def create_account(username, pswrd):
+    with engine.connect() as conn:
+        create_user = text(f'CREATE TABLE `cities`.`user{username}` (`id` INT NOT NULL AUTO_INCREMENT,`city_id` INT NULL,`like` VARCHAR(45) NULL,PRIMARY KEY (`id`));')
+        conn.execute(create_user)
+    with engine.connect() as conn2:
+        create_user_pswrd = text(f"INSERT INTO `cities`.`users` (`user_id`, `user_psw`) VALUES ('{username}', '{pswrd}');")
+        conn2.execute(create_user_pswrd)
