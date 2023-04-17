@@ -23,11 +23,11 @@ def encode_binary_response(response):
         cities_dict = []
         for row in response:
             row_dict = dict(row)
-            if row_dict["city_icon"] == None:
+            if row_dict["im"] == None:
                 cities_dict.append(row_dict)
             else:
-                base64_encoded_image = base64.b64encode(row_dict["city_icon"]).decode("utf-8")
-                row_dict.update({"city_icon": base64_encoded_image})
+                base64_encoded_image = base64.b64encode(row_dict["im"]).decode("utf-8")
+                row_dict.update({"im": base64_encoded_image})
                 cities_dict.append(row_dict)
         return cities_dict
 
@@ -42,11 +42,23 @@ def load_city_from_db():
     with engine.connect() as conn:
         result = conn.execute(text(f"SELECT * FROM cities ORDER BY RAND() LIMIT 1"))
         city = result.mappings().all()
-    city_dict = encode_binary_response(city)
-    return city_dict[0]
+    
+    return city[0]
 
-
-def update_like_dislike(id, ld):
+def load_city_image_from_db(id_city):
     with engine.connect() as conn:
-        query = text(f'UPDATE cities.cities SET city_like = "{ld}" WHERE id = {id}')
+        result = conn.execute(text(f"SELECT im FROM images WHERE id_city = {id_city}"))
+    encoded_image = encode_binary_response(result)
+    return [d['im'] for d in encoded_image]
+
+def update_like_dislike(id, like):
+    with engine.connect() as conn:
+        query = text(f'UPDATE cities.cities SET city_like = "{like}" WHERE id = {id}')
         conn.execute(query)
+
+def load_lat_long_from_db(id):
+    with engine.connect() as conn:
+        query = text(f'SELECT city_name, city_lat, city_long FROM cities.cities where id = {id};')
+        result = conn.execute(query)
+        return result.mappings().all()[0]
+    
